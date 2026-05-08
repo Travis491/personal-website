@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travis Kim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:           #17120D;
+            --bg-2:         #1E1710;
+            --glass:        rgba(255,220,175,0.06);
+            --glass-border: rgba(255,210,160,0.11);
+            --text:         #F5EDE0;
+            --text-muted:   #9A8B7A;
+            --accent:       #FF5C35;
+            --accent-light: #FF8560;
+            --accent-glow:  rgba(255,92,53,0.18);
+            --gold:         #FFB830;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ─────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(23,18,13,0.82);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-logo:hover { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+        .nav-links a {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 3px;
+            transition: color 0.2s;
+        }
+
+        /* micro-interaction: nav underline slides in from left */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: width 0.25s ease;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ── HERO ─────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2.5rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ambient glow orbs */
+        .hero-orb-1 {
+            position: absolute;
+            top: 15%; left: -8%;
+            width: 640px; height: 640px;
+            background: radial-gradient(circle, rgba(255,92,53,0.1) 0%, transparent 65%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-orb-2 {
+            position: absolute;
+            bottom: 5%; right: -5%;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(255,184,48,0.07) 0%, transparent 65%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-name {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(4.5rem, 12vw, 10rem);
+            font-weight: 700;
+            line-height: 0.9;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+        }
+        .hero-name em {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        .hero-tagline {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: clamp(1.15rem, 2.8vw, 1.7rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 560px;
+            line-height: 1.55;
+        }
+
+        .hero-rule {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3.5rem;
+        }
+        .hero-rule-line { width: 48px; height: 1px; background: var(--accent); opacity: 0.5; }
+        .hero-rule-text {
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── SHARED SECTION STYLES ─────────────────────────── */
+        section { padding: 6rem 2.5rem; }
+        .section-inner { max-width: 960px; margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.85rem;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+
+        /* ── ABOUT ────────────────────────────────────────── */
+        #about { background: var(--bg); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4.5rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+            line-height: 1.85;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* glassmorphism stat cards */
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 18px;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+            cursor: default;
+            /* micro-interaction */
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-7px) scale(1.03);
+            background: rgba(255,77,53,0.09);
+            border-color: rgba(255,77,53,0.25);
+            box-shadow: 0 24px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,77,53,0.15);
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            transition: color 0.25s;
+        }
+        .stat-card:hover .stat-number { color: var(--accent-light); }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── PRINCIPLES ───────────────────────────────────── */
+        #principles { background: var(--bg-2); }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.1rem;
+        }
+
+        /* glassmorphism principle cards */
+        .principle-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(18px) saturate(160%);
+            border-radius: 20px;
+            padding: 2rem 1.75rem;
+            position: relative;
+            overflow: hidden;
+            /* micro-interaction */
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .principle-card:hover {
+            transform: translateY(-7px);
+            background: rgba(255,77,53,0.07);
+            border-color: rgba(255,77,53,0.28);
+            box-shadow: 0 28px 56px rgba(0,0,0,0.55), 0 0 32px rgba(255,77,53,0.07);
+        }
+
+        .principle-number {
+            font-family: 'Fraunces', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.07;
+            position: absolute;
+            top: -1.2rem; right: 0.6rem;
+            line-height: 1;
+            user-select: none;
+            transition: opacity 0.25s;
+        }
+        .principle-card:hover .principle-number { opacity: 0.18; }
+
+        .principle-text {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.45;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── PORTFOLIO ─────────────────────────────────────── */
+        #portfolio { background: var(--bg); }
+
+        .portfolio-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        /* glassmorphism portfolio cards */
+        .portfolio-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: start;
+            border-left: 3px solid transparent;
+            /* micro-interaction */
+            transition: border-color 0.25s ease, transform 0.25s ease,
+                        box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .portfolio-card:hover {
+            border-left-color: var(--accent);
+            transform: translateX(8px);
+            background: rgba(255,77,53,0.05);
+            box-shadow: 0 16px 44px rgba(0,0,0,0.45);
+        }
+
+        .portfolio-card-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+
+        /* progressive disclosure */
+        .portfolio-card-desc {
+            font-size: 0.93rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            max-height: 3.3em;
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.45s ease;
+        }
+        .portfolio-card-desc::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2em;
+            background: linear-gradient(transparent, var(--bg));
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .portfolio-card-desc.expanded { max-height: 200px; }
+        .portfolio-card-desc.expanded::after { opacity: 0; }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 0.45rem 0;
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s, gap 0.2s;
+        }
+        .toggle-btn:hover { color: var(--accent-light); gap: 0.65rem; }
+
+        .toggle-icon {
+            display: inline-block;
+            font-style: normal;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            line-height: 1;
+        }
+        .toggle-btn.open .toggle-icon { transform: rotate(45deg); }
+
+        .portfolio-metric {
+            text-align: right;
+            flex-shrink: 0;
+            padding-top: 0.2rem;
+        }
+
+        .metric-value {
+            font-family: 'Fraunces', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+        .portfolio-card:hover .metric-value { color: var(--accent-light); }
+
+        .metric-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            margin-top: 0.3rem;
+            white-space: nowrap;
+        }
+
+        /* ── LOVES ─────────────────────────────────────────── */
+        #loves { background: var(--bg-2); }
+
+        .loves-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.1rem;
+        }
+
+        /* glassmorphism love cards */
+        .love-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 2.25rem 1.75rem;
+            text-align: center;
+            /* micro-interaction */
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+        }
+        .love-card:hover {
+            transform: translateY(-9px) scale(1.02);
+            background: rgba(255,77,53,0.07);
+            border-color: rgba(255,77,53,0.22);
+            box-shadow: 0 24px 52px rgba(0,0,0,0.5), 0 0 24px rgba(255,77,53,0.07);
+        }
+
+        .love-icon {
+            font-size: 2.6rem;
+            margin-bottom: 1rem;
+            display: block;
+            line-height: 1;
+            /* micro-interaction: icon spins/bounces */
+            transition: transform 0.25s ease;
+        }
+        .love-card:hover .love-icon { transform: scale(1.25) rotate(-8deg); }
+
+        .love-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .love-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ── FOOTER ────────────────────────────────────────── */
+        footer {
+            background: #0E0A07;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 3.5rem 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .footer-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text);
+            opacity: 0.55;
+            margin-bottom: 0.5rem;
+        }
+        footer p { font-size: 0.74rem; opacity: 0.3; letter-spacing: 0.08em; }
+
+        /* ── FADE-UP ANIMATION ─────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: none; }
+
+        /* stagger children */
+        .principles-grid .principle-card:nth-child(2) { transition-delay: 0.08s; }
+        .principles-grid .principle-card:nth-child(3) { transition-delay: 0.16s; }
+        .principles-grid .principle-card:nth-child(4) { transition-delay: 0.24s; }
+        .principles-grid .principle-card:nth-child(5) { transition-delay: 0.32s; }
+        .principles-grid .principle-card:nth-child(6) { transition-delay: 0.40s; }
+        .portfolio-list .portfolio-card:nth-child(2)  { transition-delay: 0.10s; }
+        .portfolio-list .portfolio-card:nth-child(3)  { transition-delay: 0.20s; }
+        .portfolio-list .portfolio-card:nth-child(4)  { transition-delay: 0.30s; }
+        .loves-grid .love-card:nth-child(2) { transition-delay: 0.08s; }
+        .loves-grid .love-card:nth-child(3) { transition-delay: 0.16s; }
+        .loves-grid .love-card:nth-child(4) { transition-delay: 0.24s; }
+
+        /* ── VIDEOS ────────────────────────────────────────── */
+        #videos { background: var(--bg); }
+
+        .videos-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 660px;
+            line-height: 1.85;
+            margin-top: -1.5rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .video-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,92,53,0.3);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,92,53,0.12);
+        }
+
+        .video-thumb {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #111;
+        }
+        .video-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+            display: block;
+        }
+        .video-card:hover .video-thumb img { transform: scale(1.06); }
+
+        .video-thumb-placeholder {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,92,53,0.15), rgba(255,184,48,0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .video-play {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.28);
+            transition: background 0.25s;
+        }
+        .video-card:hover .video-play { background: rgba(0,0,0,0.12); }
+
+        .video-play-btn {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: rgba(255,92,53,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background 0.2s;
+            box-shadow: 0 4px 20px rgba(255,92,53,0.5);
+        }
+        .video-card:hover .video-play-btn { transform: scale(1.12); background: var(--accent); }
+        .video-play-btn svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
+
+        .video-external-icon {
+            position: absolute;
+            top: 0.6rem; right: 0.6rem;
+            background: rgba(0,0,0,0.55);
+            border-radius: 6px;
+            padding: 0.25rem 0.4rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(245,237,224,0.7);
+        }
+
+        .video-info { padding: 1rem 1.25rem 1.25rem; }
+
+        .video-tag {
+            font-size: 0.66rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+        .video-title {
+            font-family: 'Fraunces', serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.35;
+        }
+
+        /* VIDEO MODAL */
+        .video-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .video-modal.open { opacity: 1; pointer-events: all; }
+
+        .video-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(10,7,4,0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-modal-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 880px;
+            transform: scale(0.94) translateY(14px);
+            transition: transform 0.3s ease;
+        }
+        .video-modal.open .video-modal-content { transform: scale(1) translateY(0); }
+
+        .video-modal-close {
+            position: absolute;
+            top: -2.75rem; right: 0;
+            background: none;
+            border: none;
+            color: rgba(245,237,224,0.5);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+            padding: 0.25rem;
+        }
+        .video-modal-close:hover { color: var(--text); }
+
+        .video-modal-player {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.75);
+        }
+        .video-modal-player iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .video-modal-label {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 1.25rem;
+        }
+
+        /* ── VIDEO GROUPS ──────────────────────────────────── */
+        .videos-group {
+            margin-bottom: 3.75rem;
+        }
+        .videos-group:last-child { margin-bottom: 0; }
+
+        .vsg-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .vsg-num {
+            font-family: 'Fraunces', serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            opacity: 0.55;
+            letter-spacing: 0.06em;
+            flex-shrink: 0;
+        }
+
+        .vsg-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .vsg-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: auto;
+            font-style: italic;
+            padding-left: 1rem;
+            white-space: nowrap;
+        }
+
+        .vsg-empty {
+            padding: 1.75rem 2rem;
+            border: 1px dashed rgba(255,210,160,0.13);
+            border-radius: 16px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        /* ── RESPONSIVE ────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .portfolio-card { grid-template-columns: 1fr; }
+            .portfolio-metric { text-align: left; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">Travis Kim</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#principles">Principles</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#loves">Loves</a></li>
+            <li><a href="#videos">Videos</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-orb-1"></div>
+        <div class="hero-orb-2"></div>
+        <div class="hero-inner">
+            <p class="hero-eyebrow">Product · People · Possibility</p>
+            <h1 class="hero-name">Travis<br><em>Kim</em></h1>
+            <p class="hero-tagline">Husband. Dad of 2 humans & 4 fur babies. Product leader who builds out of curiosity, a love of learning, and resourcefulness.</p>
+            <div class="hero-rule">
+                <div class="hero-rule-line"></div>
+                <span class="hero-rule-text">Scroll to explore</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-inner">
+            <p class="section-label fade-up">Who I am</p>
+            <h2 class="section-title fade-up">More than a job title.</h2>
+            <div class="about-grid fade-up">
+                <div class="about-text">
+                    <p>I'm Travis — a product leader at Wayfair who gets energized by the intersection of data, design, and people. By day I'm driving strategies that move the needle on how millions of people shop online.</p>
+                    <p>By night I'm happily outnumbered at home: a wife, two kids, one very good dog, and three cats who are entirely in charge of the household. I wouldn't have it any other way.</p>
+                    <p>I believe the best products come from curiosity, experimentation, and a deep respect for the people using them. I'm always learning, always building, always looking for the next thing that makes a dent.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">$200M+</div>
+                        <div class="stat-label">Revenue driven</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">PMs trained</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Humans raised</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Fur babies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section id="principles">
+        <div class="section-inner">
+            <p class="section-label fade-up">How I think</p>
+            <h2 class="section-title fade-up">Principles I live by.</h2>
+            <div class="principles-grid">
+                <div class="principle-card fade-up">
+                    <div class="principle-number">01</div>
+                    <p class="principle-text">Experiment over opinion</p>
+                </div>
+                <div class="principle-card fade-up">
+                    <div class="principle-number">02</div>
+                    <p class="principle-text">Simplify to understand</p>
+                </div>
+                <div class="principle-card fade-up">
+                    <div class="principle-number">03</div>
+                    <p class="principle-text">Strategy and execution both matter</p>
+                </div>
+                <div class="principle-card fade-up">
+                    <div class="principle-number">04</div>
+                    <p class="principle-text">Teach what you learn</p>
+                </div>
+                <div class="principle-card fade-up">
+                    <div class="principle-number">05</div>
+                    <p class="principle-text">Meet someone where they are</p>
+                </div>
+                <div class="principle-card fade-up">
+                    <div class="principle-number">06</div>
+                    <p class="principle-text">Lifelong learner, lifelong evolver</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="section-inner">
+            <p class="section-label fade-up">What I've built</p>
+            <h2 class="section-title fade-up">Work that moved the needle.</h2>
+            <div class="portfolio-list">
+
+                <div class="portfolio-card fade-up">
+                    <div>
+                        <div class="portfolio-card-title">Homepage Redesign — App & Web</div>
+                        <div class="portfolio-card-desc" id="desc-1">Devised core strategy, planned end-to-end A/B tests, and collaborated with cross-functional teams across Search & Recs, Marketing, and Analytics. Delivered 2× the revenue target.</div>
+                        <button class="toggle-btn" onclick="toggle('desc-1', this)">
+                            <span class="toggle-icon">+</span> Read more
+                        </button>
+                    </div>
+                    <div class="portfolio-metric">
+                        <div class="metric-value">$130M</div>
+                        <div class="metric-label">annualized revenue</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-up">
+                    <div>
+                        <div class="portfolio-card-title">Dynamic Page Construction</div>
+                        <div class="portfolio-card-desc" id="desc-2">Led personalization strategy testing 8 recommendation models. Dynamic Page Construction used behavioral data to reorder homepage content based on each customer's browsing history, lifting engagement across App & Web.</div>
+                        <button class="toggle-btn" onclick="toggle('desc-2', this)">
+                            <span class="toggle-icon">+</span> Read more
+                        </button>
+                    </div>
+                    <div class="portfolio-metric">
+                        <div class="metric-value">$60M</div>
+                        <div class="metric-label">annualized revenue</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-up">
+                    <div>
+                        <div class="portfolio-card-title">Cursor 101 — PM Training Program</div>
+                        <div class="portfolio-card-desc" id="desc-3">Launched AI workflow training for Wayfair PMs, teaching core Cursor workflows and coordinating org-wide demos. Scaled adoption from Customer Tech to 100+ PMs across the organization.</div>
+                        <button class="toggle-btn" onclick="toggle('desc-3', this)">
+                            <span class="toggle-icon">+</span> Read more
+                        </button>
+                    </div>
+                    <div class="portfolio-metric">
+                        <div class="metric-value">100+</div>
+                        <div class="metric-label">PMs trained</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card fade-up">
+                    <div>
+                        <div class="portfolio-card-title">AI-Enabled PM Workflow</div>
+                        <div class="portfolio-card-desc" id="desc-4">Built an AI-powered product development workflow in Cursor that improved the speed and quality of engineering requirements and helped drive rapid high-usage adoption in just two months.</div>
+                        <button class="toggle-btn" onclick="toggle('desc-4', this)">
+                            <span class="toggle-icon">+</span> Read more
+                        </button>
+                    </div>
+                    <div class="portfolio-metric">
+                        <div class="metric-value">2.4×</div>
+                        <div class="metric-label">high-usage growth Jan–Feb '26</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LOVES -->
+    <section id="loves">
+        <div class="section-inner">
+            <p class="section-label fade-up">Off the clock</p>
+            <h2 class="section-title fade-up">Things I love.</h2>
+            <div class="loves-grid">
+                <div class="love-card fade-up">
+                    <span class="love-icon">🎬</span>
+                    <div class="love-title">Inspiring Videos</div>
+                    <div class="love-desc">Nothing sparks new thinking like a great video. Talks, docs, short films — if it makes me see the world differently, I'm all in.</div>
+                </div>
+                <div class="love-card fade-up">
+                    <span class="love-icon">🐾</span>
+                    <div class="love-title">Fur Baby Chaos</div>
+                    <div class="love-desc">1 dog + 3 cats = maximum entropy, maximum love. Life is better with animals in it.</div>
+                </div>
+                <div class="love-card fade-up">
+                    <span class="love-icon">👨‍👩‍👧‍👦</span>
+                    <div class="love-title">Family Time</div>
+                    <div class="love-desc">Husband. Dad. The role I'm most proud of, hands down — no contest.</div>
+                </div>
+                <div class="love-card fade-up">
+                    <span class="love-icon">🌱</span>
+                    <div class="love-title">Always Learning</div>
+                    <div class="love-desc">New tools, new fields, new perspectives. The day I stop growing is a bad day.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+        <div class="section-inner">
+            <p class="section-label fade-up">Watch & Feel</p>
+            <h2 class="section-title fade-up">Videos that shaped me.</h2>
+            <p class="videos-subtitle fade-up">These are the videos that have guided me, lifted me in dark times, made me feel hopeful, made me cry, made me laugh — and helped me learn more about myself and the world.</p>
+
+            <!-- 01 · Words to Live By -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">01</span>
+                    <span class="vsg-name">Words to Live By</span>
+                    <span class="vsg-desc">Reminders worth carrying through life</span>
+                </div>
+                <div class="videos-grid">
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/sTJ7AzBIJoI', 'Everybody\'s Free to Wear Sunscreen')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/sTJ7AzBIJoI/hqdefault.jpg" alt="Sunscreen" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Wisdom</div>
+                            <div class="video-title">Everybody's Free to Wear Sunscreen</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/wOTxnjbMpDk', 'Michael Jordan on Being Present')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/wOTxnjbMpDk/hqdefault.jpg" alt="Michael Jordan" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Mindset</div>
+                            <div class="video-title">Michael Jordan on Being Present</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/6JkPzpfg_SA', 'Little Imperfections Make Them Perfect')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/6JkPzpfg_SA/hqdefault.jpg" alt="Little Imperfections" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Love & Humor</div>
+                            <div class="video-title">Little Imperfections Make Them Perfect</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 02 · Off the Couch -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">02</span>
+                    <span class="vsg-name">Off the Couch</span>
+                    <span class="vsg-desc">Watch these when you need to move</span>
+                </div>
+                <div class="videos-grid">
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/lsSC2vx7zFQ', 'How Bad Do You Want It?')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/lsSC2vx7zFQ/hqdefault.jpg" alt="How Bad Do You Want It?" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Motivation</div>
+                            <div class="video-title">How Bad Do You Want It?</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 03 · Down the Rabbit Hole -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">03</span>
+                    <span class="vsg-name">Down the Rabbit Hole</span>
+                    <span class="vsg-desc">Watch one, question everything</span>
+                </div>
+                <div class="videos-grid">
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/TCvX2N-RoEg', 'Address Is Approximate')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/TCvX2N-RoEg/hqdefault.jpg" alt="Address Is Approximate" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Wonder</div>
+                            <div class="video-title">Address Is Approximate</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/lewGkp-0g0c', 'Neil deGrasse Tyson: Maybe We\'re Not As Smart As We Think')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/lewGkp-0g0c/hqdefault.jpg" alt="Neil deGrasse Tyson" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Science & Humility</div>
+                            <div class="video-title">Neil deGrasse Tyson: Maybe We're Not As Smart As We Think</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/j2oXFWKpJiA', 'The Sagan Series: Life Looks for Life')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/j2oXFWKpJiA/hqdefault.jpg" alt="The Sagan Series" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Awe</div>
+                            <div class="video-title">The Sagan Series: Life Looks for Life</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/c0H1zU2ytxA', 'Half a Million Secrets — Frank Warren')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/c0H1zU2ytxA/hqdefault.jpg" alt="Frank Warren TED" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Human Connection</div>
+                            <div class="video-title">Half a Million Secrets — Frank Warren</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 04 · Screen Gems -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">04</span>
+                    <span class="vsg-name">Screen Gems</span>
+                    <span class="vsg-desc">Scenes and shorts that stay with you</span>
+                </div>
+                <div class="videos-grid">
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/EqXcCS6fxkg', 'Splitscreen: A Love Story')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/EqXcCS6fxkg/hqdefault.jpg" alt="Splitscreen: A Love Story" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Love</div>
+                            <div class="video-title">Splitscreen: A Love Story</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="window.open('https://www.wimp.com/could-have-been-a-love-story/', '_blank')">
+                        <div class="video-thumb">
+                            <div class="video-thumb-placeholder">💬</div>
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                            <span class="video-external-icon">↗ external</span>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Bittersweet</div>
+                            <div class="video-title">Could Have Been a Love Story</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/f7D8THR_osU', 'Every Second Counts — The Bear')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/f7D8THR_osU/hqdefault.jpg" alt="The Bear" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">TV · The Bear</div>
+                            <div class="video-title">Every Second Counts</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 05 · Game-Changers -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">05</span>
+                    <span class="vsg-name">Game-Changers</span>
+                    <span class="vsg-desc">Sports moments that are really about something more</span>
+                </div>
+                <div class="vsg-empty">More coming soon — drop your favorites here.</div>
+            </div>
+
+            <!-- 06 · Sonic Soul Food -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">06</span>
+                    <span class="vsg-name">Sonic Soul Food</span>
+                    <span class="vsg-desc">Music that hits somewhere deep</span>
+                </div>
+                <div class="videos-grid">
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/yMzADnHWWR4', 'The Exact Moment a Musician Realizes He\'s Made It')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/yMzADnHWWR4/hqdefault.jpg" alt="Musician realizes he made it" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Joy</div>
+                            <div class="video-title">The Exact Moment a Musician Realizes He's Made It</div>
+                        </div>
+                    </div>
+
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/ft8GNg4wyIk', 'Dance Like Nobody\'s Watching')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/ft8GNg4wyIk/hqdefault.jpg" alt="Dance Like Nobody's Watching" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Pure Joy</div>
+                            <div class="video-title">Dance Like Nobody's Watching</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-backdrop" onclick="closeModal()"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeModal()">✕</button>
+            <div class="video-modal-player">
+                <iframe id="videoFrame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+            </div>
+            <p class="video-modal-label" id="videoModalLabel"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-name">Travis Kim</div>
+        <p>tkim2@wayfair.com</p>
+    </footer>
+
+    <script>
+        // Fade-up on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) el.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Video modal
+        function openVideo(embedUrl, title) {
+            document.getElementById('videoFrame').src = embedUrl + '?autoplay=1&rel=0';
+            document.getElementById('videoModalLabel').textContent = title;
+            document.getElementById('videoModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').classList.remove('open');
+            document.getElementById('videoFrame').src = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        // Progressive disclosure toggle
+        function toggle(id, btn) {
+            const desc = document.getElementById(id);
+            const isOpen = desc.classList.toggle('expanded');
+            btn.classList.toggle('open', isOpen);
+            const label = btn.querySelector('.toggle-icon').nextSibling;
+            btn.innerHTML = isOpen
+                ? '<span class="toggle-icon">+</span> Read less'
+                : '<span class="toggle-icon">+</span> Read more';
+        }
+    </script>
+
+</body>
+</html>

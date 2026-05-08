@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos — Travis Kim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:             #F4F2F9;
+            --bg-2:           #EDEAF5;
+            --surface:        #FFFFFF;
+            --surface-border: rgba(107,72,255,0.10);
+            --text:           #1A1730;
+            --text-muted:     #7B7494;
+            --accent:         #6B48FF;
+            --accent-light:   #8B6FFF;
+            --accent-2:       #C842A0;
+            --gradient-brand: linear-gradient(90deg, #C842A0, #6B48FF, #8B6FFF);
+            --gradient-glow:  radial-gradient(ellipse at 60% 0%, rgba(180,140,255,0.22) 0%, transparent 65%);
+            --dot:            rgba(107,72,255,0.18);
+            --shadow-card:    0 2px 20px rgba(107,72,255,0.07);
+            --shadow-hover:   0 12px 40px rgba(107,72,255,0.13);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ─────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(244,242,249,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(107,72,255,0.08);
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .nav-logo:hover { opacity: 0.75; }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a.active { color: var(--accent); }
+
+        /* ── PAGE HEADER ──────────────────────────────────────── */
+        .page-header {
+            padding: 9rem 2.5rem 5rem;
+            text-align: center;
+            background: var(--gradient-glow), var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-back {
+            position: absolute;
+            top: 6.5rem;
+            left: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s, gap 0.2s;
+        }
+        .page-header-back:hover { color: var(--accent); gap: 0.6rem; }
+
+        .page-header-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .page-header-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text);
+            margin-bottom: 1.25rem;
+        }
+        .page-header-title em {
+            font-style: italic;
+            font-weight: 300;
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header-sub {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        /* ── SHARED SECTION STYLES ───────────────────────────── */
+        section { padding: 6rem 2.5rem; }
+        .section-inner { max-width: 960px; margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+
+        /* ── VIDEOS ──────────────────────────────────────────── */
+        #videos { background: var(--bg); }
+
+        .videos-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 660px;
+            line-height: 1.85;
+            margin-top: -1.5rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .video-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(107,72,255,0.22);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .video-thumb {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: var(--bg-2);
+        }
+        .video-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+            display: block;
+        }
+        .video-card:hover .video-thumb img { transform: scale(1.05); }
+
+        .video-thumb-placeholder {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(107,72,255,0.1), rgba(200,66,160,0.07));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .video-play {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26,23,48,0.18);
+            transition: background 0.25s;
+        }
+        .video-card:hover .video-play { background: rgba(26,23,48,0.08); }
+
+        .video-play-btn {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background 0.2s;
+            box-shadow: 0 4px 18px rgba(107,72,255,0.45);
+        }
+        .video-card:hover .video-play-btn { transform: scale(1.1); background: var(--accent-light); }
+        .video-play-btn svg { width: 18px; height: 18px; fill: white; margin-left: 3px; }
+
+        .video-external-icon {
+            position: absolute;
+            top: 0.6rem; right: 0.6rem;
+            background: rgba(26,23,48,0.5);
+            border-radius: 6px;
+            padding: 0.25rem 0.4rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(244,242,249,0.85);
+        }
+
+        .video-info { padding: 1rem 1.25rem 1.25rem; }
+
+        .video-tag {
+            font-size: 0.66rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+        .video-title {
+            font-family: 'Fraunces', serif;
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.35;
+        }
+
+        /* VIDEO MODAL */
+        .video-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .video-modal.open { opacity: 1; pointer-events: all; }
+
+        .video-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,23,48,0.82);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-modal-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 880px;
+            transform: scale(0.94) translateY(14px);
+            transition: transform 0.3s ease;
+        }
+        .video-modal.open .video-modal-content { transform: scale(1) translateY(0); }
+
+        .video-modal-close {
+            position: absolute;
+            top: -2.75rem; right: 0;
+            background: none;
+            border: none;
+            color: rgba(244,242,249,0.6);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+            padding: 0.25rem;
+        }
+        .video-modal-close:hover { color: white; }
+
+        .video-modal-player {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(26,23,48,0.6);
+        }
+        .video-modal-player iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .video-modal-label {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 300;
+            color: rgba(244,242,249,0.6);
+            text-align: center;
+            margin-top: 1.25rem;
+        }
+
+        /* ── VIDEO GROUPS ────────────────────────────────────── */
+        .videos-group { margin-bottom: 3.75rem; }
+        .videos-group:last-child { margin-bottom: 0; }
+
+        .vsg-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--surface-border);
+        }
+
+        .vsg-num {
+            font-family: 'Fraunces', serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            opacity: 0.5;
+            letter-spacing: 0.06em;
+            flex-shrink: 0;
+        }
+
+        .vsg-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .vsg-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: auto;
+            font-style: italic;
+            padding-left: 1rem;
+            white-space: nowrap;
+        }
+
+        .vsg-empty {
+            padding: 1.75rem 2rem;
+            border: 1px dashed rgba(107,72,255,0.15);
+            border-radius: 16px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        /* ── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: var(--surface);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--surface-border);
+        }
+        .footer-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            font-weight: 300;
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.7;
+            margin-bottom: 0.35rem;
+        }
+        footer p { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.08em; opacity: 0.5; }
+
+        /* ── FADE-UP ANIMATION ───────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .vsg-desc { display: none; }
+            .page-header-back { position: static; display: block; margin-bottom: 2rem; text-align: left; }
+            .page-header { padding-top: 7rem; }
+        }
+
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition: none !important; animation: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="my-site-v2.html" class="nav-logo">Travis Kim</a>
+        <ul class="nav-links">
+            <li><a href="my-site-v2.html#about">About</a></li>
+            <li><a href="my-site-v2.html#principles">Principles</a></li>
+            <li><a href="my-site-v2.html#portfolio">Work</a></li>
+            <li><a href="my-site-v2.html#loves">Loves</a></li>
+            <li><a href="videos.html" class="active">Videos</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <a href="my-site-v2.html" class="page-header-back">← Back</a>
+        <p class="page-header-eyebrow">Watch &amp; Feel</p>
+        <h1 class="page-header-title">Videos that<br><em>shaped me.</em></h1>
+        <p class="page-header-sub">These are the videos that have guided me, lifted me in dark times, made me feel hopeful, made me cry, made me laugh — and helped me learn more about myself and the world.</p>
+    </div>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+        <div class="section-inner">
+
+            <!-- 01 · Words to Live By -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">01</span>
+                    <span class="vsg-name">Words to Live By</span>
+                    <span class="vsg-desc">Reminders worth carrying through life</span>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/sTJ7AzBIJoI', 'Everybody\'s Free to Wear Sunscreen')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/sTJ7AzBIJoI/hqdefault.jpg" alt="Sunscreen" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Wisdom</div>
+                            <div class="video-title">Everybody's Free to Wear Sunscreen</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/wOTxnjbMpDk', 'Michael Jordan on Being Present')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/wOTxnjbMpDk/hqdefault.jpg" alt="Michael Jordan" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Mindset</div>
+                            <div class="video-title">Michael Jordan on Being Present</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/6JkPzpfg_SA', 'Little Imperfections Make Them Perfect')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/6JkPzpfg_SA/hqdefault.jpg" alt="Little Imperfections" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Love & Humor</div>
+                            <div class="video-title">Little Imperfections Make Them Perfect</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02 · Off the Couch -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">02</span>
+                    <span class="vsg-name">Off the Couch</span>
+                    <span class="vsg-desc">Watch these when you need to move</span>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/lsSC2vx7zFQ', 'How Bad Do You Want It?')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/lsSC2vx7zFQ/hqdefault.jpg" alt="How Bad Do You Want It?" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Motivation</div>
+                            <div class="video-title">How Bad Do You Want It?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03 · Down the Rabbit Hole -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">03</span>
+                    <span class="vsg-name">Down the Rabbit Hole</span>
+                    <span class="vsg-desc">Watch one, question everything</span>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/TCvX2N-RoEg', 'Address Is Approximate')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/TCvX2N-RoEg/hqdefault.jpg" alt="Address Is Approximate" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Wonder</div>
+                            <div class="video-title">Address Is Approximate</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/lewGkp-0g0c', 'Neil deGrasse Tyson: Maybe We\'re Not As Smart As We Think')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/lewGkp-0g0c/hqdefault.jpg" alt="Neil deGrasse Tyson" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Science & Humility</div>
+                            <div class="video-title">Neil deGrasse Tyson: Maybe We're Not As Smart As We Think</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/j2oXFWKpJiA', 'The Sagan Series: Life Looks for Life')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/j2oXFWKpJiA/hqdefault.jpg" alt="The Sagan Series" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Awe</div>
+                            <div class="video-title">The Sagan Series: Life Looks for Life</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/c0H1zU2ytxA', 'Half a Million Secrets — Frank Warren')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/c0H1zU2ytxA/hqdefault.jpg" alt="Frank Warren TED" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Human Connection</div>
+                            <div class="video-title">Half a Million Secrets — Frank Warren</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04 · Screen Gems -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">04</span>
+                    <span class="vsg-name">Screen Gems</span>
+                    <span class="vsg-desc">Scenes and shorts that stay with you</span>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/EqXcCS6fxkg', 'Splitscreen: A Love Story')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/EqXcCS6fxkg/hqdefault.jpg" alt="Splitscreen: A Love Story" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Love</div>
+                            <div class="video-title">Splitscreen: A Love Story</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="window.open('https://www.wimp.com/could-have-been-a-love-story/', '_blank')">
+                        <div class="video-thumb">
+                            <div class="video-thumb-placeholder">💬</div>
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                            <span class="video-external-icon">↗ external</span>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Bittersweet</div>
+                            <div class="video-title">Could Have Been a Love Story</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/f7D8THR_osU', 'Every Second Counts — The Bear')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/f7D8THR_osU/hqdefault.jpg" alt="The Bear" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">TV · The Bear</div>
+                            <div class="video-title">Every Second Counts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 05 · Game-Changers -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">05</span>
+                    <span class="vsg-name">Game-Changers</span>
+                    <span class="vsg-desc">Sports moments that are really about something more</span>
+                </div>
+                <div class="vsg-empty">More coming soon — drop your favorites here.</div>
+            </div>
+
+            <!-- 06 · Sonic Soul Food -->
+            <div class="videos-group fade-up">
+                <div class="vsg-header">
+                    <span class="vsg-num">06</span>
+                    <span class="vsg-name">Sonic Soul Food</span>
+                    <span class="vsg-desc">Music that hits somewhere deep</span>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/yMzADnHWWR4', 'The Exact Moment a Musician Realizes He\'s Made It')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/yMzADnHWWR4/hqdefault.jpg" alt="Musician realizes he made it" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Joy</div>
+                            <div class="video-title">The Exact Moment a Musician Realizes He's Made It</div>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('https://www.youtube.com/embed/ft8GNg4wyIk', 'Dance Like Nobody\'s Watching')">
+                        <div class="video-thumb">
+                            <img src="https://img.youtube.com/vi/ft8GNg4wyIk/hqdefault.jpg" alt="Dance Like Nobody's Watching" loading="lazy">
+                            <div class="video-play"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-tag">Pure Joy</div>
+                            <div class="video-title">Dance Like Nobody's Watching</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-backdrop" onclick="closeModal()"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeModal()">✕</button>
+            <div class="video-modal-player">
+                <iframe id="videoFrame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+            </div>
+            <p class="video-modal-label" id="videoModalLabel"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-name">Travis Kim</div>
+        <p>Making complex things feel simpler.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) el.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        function openVideo(embedUrl, title) {
+            document.getElementById('videoFrame').src = embedUrl + '?autoplay=1&rel=0';
+            document.getElementById('videoModalLabel').textContent = title;
+            document.getElementById('videoModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').classList.remove('open');
+            document.getElementById('videoFrame').src = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    </script>
+
+</body>
+</html>
