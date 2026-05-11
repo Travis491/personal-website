@@ -148,3 +148,18 @@ The site should feel like a breath of fresh air — a deliberate contrast to the
 | Center-align hero content | Left-align the hero on desktop |
 | Generous section whitespace | Tight, crowded sections |
 | Specific numbers and human details in copy | Vague superlatives ("passionate", "driven") |
+
+---
+
+## 10. Motion & Interaction
+
+Motion is a quiet signal, not a show. Animations should feel like the page *settling* rather than performing.
+
+- **Hover lifts:** 4–6px translateY on cards, 120–180ms ease-out
+- **Button press:** subtle scale(0.98) on active, 80ms
+- **Page transitions:** fade only, 200ms — never slide between sections
+- **Scroll-triggered reveals:** opacity 0 → 1 + 8px lift, staggered by 60ms between siblings
+- **Floating dots:** drift slowly (15–25s loop), `will-change: transform` for smoothness
+- **`prefers-reduced-motion: reduce`** disables every transition above to a 1ms duration
+
+Avoid: parallax, bouncy springs, anything that delays a user's intent.
