@@ -538,7 +538,7 @@
 
         .principles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1rem;
         }
 
@@ -546,41 +546,74 @@
             background: var(--surface);
             border: 1px solid var(--surface-border);
             border-radius: 20px;
-            padding: 2rem 1.75rem;
+            padding: 2rem 1.9rem;
             position: relative;
-            overflow: hidden;
+            border-left: 3px solid transparent;
             box-shadow: var(--shadow-card);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .principle-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(107,72,255,0.22);
+            transform: translateY(-4px);
+            border-left-color: var(--accent);
             box-shadow: var(--shadow-hover);
         }
 
-        .principle-number {
-            font-family: 'Fraunces', serif;
-            font-size: 5rem;
-            font-weight: 700;
+        .principle-number-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             color: var(--accent);
-            opacity: 0.06;
-            position: absolute;
-            top: -1rem; right: 0.75rem;
-            line-height: 1;
-            user-select: none;
-            transition: opacity 0.25s;
+            margin-bottom: 0.75rem;
         }
-        .principle-card:hover .principle-number { opacity: 0.14; }
 
-        .principle-text {
-            font-family: 'Fraunces', serif;
-            font-size: 1.12rem;
-            font-style: italic;
-            font-weight: 400;
+        .principle-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
             color: var(--text);
-            line-height: 1.45;
-            position: relative;
-            z-index: 1;
+            line-height: 1.35;
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-card-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .principle-card-body {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+        .principle-card-body.expanded {
+            max-height: 1500px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .principle-card-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .principle-yesno {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 0.35rem;
+        }
+        .principle-yesno strong {
+            color: var(--text);
+            font-weight: 600;
         }
 
         /* ── PORTFOLIO ───────────────────────────────────────── */
@@ -1236,32 +1269,101 @@
             <h2 class="section-title fade-up">Principles I live by.</h2>
             <div class="principles-grid">
                 <div class="principle-card fade-up">
-                    <div class="principle-number">01</div>
-                    <p class="principle-text">Experiment Over Opinion</p>
+                    <div class="principle-number-label">01</div>
+                    <h3 class="principle-card-title">Experiment Over Opinion</h3>
+                    <p class="principle-card-tagline">When the answer is unclear, don't over-debate it. Test it.</p>
+                    <div class="principle-card-body" id="principle-desc-1">
+                        <p class="principle-card-desc">Opinions are useful starting points, but evidence should shape the path forward. I want to build a habit of turning uncertainty into learning as quickly as possible. When conversations become circular, the best next step is often not another meeting, but a small experiment that helps reveal what is true.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> prototypes, tests, pilots, learning loops, evidence-based decisions.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> endless debate, performative certainty, opinions treated as facts.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-1', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">02</div>
-                    <p class="principle-text">Question Until Clarity</p>
+                    <div class="principle-number-label">02</div>
+                    <h3 class="principle-card-title">Question Until Clarity</h3>
+                    <p class="principle-card-tagline">Clarity is not always given. It is created through curiosity, humility, and persistence.</p>
+                    <div class="principle-card-body" id="principle-desc-2">
+                        <p class="principle-card-desc">One of the biggest mistakes is pretending to understand when I don't. I want to ask the question early, even if it feels basic, because ambiguity compounds over time. Questions are not a sign of weakness; they are how we reduce risk, build alignment, and make better decisions.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> curiosity, deep understanding, thoughtful discovery, clear definitions.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> assumptions, vague direction, silent confusion, rushing before alignment.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-2', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">03</div>
-                    <p class="principle-text">Simplify to Understand</p>
+                    <div class="principle-number-label">03</div>
+                    <h3 class="principle-card-title">Simplify to Understand</h3>
+                    <p class="principle-card-tagline">If I cannot explain it simply, I probably do not understand it deeply enough.</p>
+                    <div class="principle-card-body" id="principle-desc-3">
+                        <p class="principle-card-desc">Complexity is often unavoidable, but confusion should not be. My role is to find the signal, name the tradeoffs, and make the path easier for others to see. Simplifying does not mean dumbing things down. It means doing the hard work to make something usable, actionable, and clear.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> clear framing, crisp decisions, focused priorities, useful documentation.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> unnecessary complexity, jargon, bloated processes, unclear ownership.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-3', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">04</div>
-                    <p class="principle-text">Trust First, Then Earn It Every Day</p>
+                    <div class="principle-number-label">04</div>
+                    <h3 class="principle-card-title">Trust First, Then Earn It Every Day</h3>
+                    <p class="principle-card-tagline">Trust is both the starting point and the work.</p>
+                    <div class="principle-card-body" id="principle-desc-4">
+                        <p class="principle-card-desc">I believe relationships move faster when they begin with good intent. But trust cannot only be assumed; it has to be built through consistency, honesty, follow-through, and care. When trust is strong, hard decisions become easier, feedback becomes safer, and teams can move with more confidence.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> transparency, reliability, direct conversations, shared ownership.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> hidden agendas, blame, avoidance, purely transactional relationships.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-4', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">05</div>
-                    <p class="principle-text">Meet People Where They Are</p>
+                    <div class="principle-number-label">05</div>
+                    <h3 class="principle-card-title">Meet People Where They Are</h3>
+                    <p class="principle-card-tagline">Everyone carries different experiences, contexts, strengths, fears, and ways of seeing the world.</p>
+                    <div class="principle-card-body" id="principle-desc-5">
+                        <p class="principle-card-desc">I do not want to dismiss an idea just because it is unfamiliar, inconvenient, or different from my own perspective. Meeting someone where they are means listening for context before judging the conclusion. It means adapting my communication, creating space for different voices, and remembering that alignment often starts with understanding.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> empathy, inclusive collaboration, context-seeking, better listening.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> dismissiveness, ego, one-size-fits-all communication, assuming intent.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-5', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">06</div>
-                    <p class="principle-text">Teach What You Learn</p>
+                    <div class="principle-number-label">06</div>
+                    <h3 class="principle-card-title">Teach What You Learn</h3>
+                    <p class="principle-card-tagline">Learning becomes more valuable when it is shared.</p>
+                    <div class="principle-card-body" id="principle-desc-6">
+                        <p class="principle-card-desc">When I learn something, I want to create leverage from it — for myself, my team, and others who may face the same challenge later. Teaching forces clarity. Sharing creates momentum. The goal is not to be the person who knows the most, but someone who helps knowledge travel further.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> documentation, coaching, reflection, reusable learnings.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> hoarding knowledge, repeating preventable mistakes, learning in isolation.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-6', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
+
                 <div class="principle-card fade-up">
-                    <div class="principle-number">07</div>
-                    <p class="principle-text">Lifelong Learner, Lifelong Evolver</p>
+                    <div class="principle-number-label">07</div>
+                    <h3 class="principle-card-title">Lifelong Learner, Lifelong Evolver</h3>
+                    <p class="principle-card-tagline">The goal is not to become fixed. The goal is to keep becoming.</p>
+                    <div class="principle-card-body" id="principle-desc-7">
+                        <p class="principle-card-desc">If I am not learning, I am standing still. I want to stay open to new information, new perspectives, and new versions of myself. Growth requires humility: the willingness to change your mind, revisit old beliefs, and evolve when the evidence or the season of life calls for it.</p>
+                        <p class="principle-yesno"><strong>This helps me say yes to:</strong> growth, reflection, feedback, reinvention.</p>
+                        <p class="principle-yesno"><strong>This helps me say no to:</strong> stagnation, defensiveness, fixed identity, comfort as the default.</p>
+                    </div>
+                    <button class="toggle-btn" onclick="toggle('principle-desc-7', this)">
+                        <span class="toggle-icon">+</span> Read more
+                    </button>
                 </div>
             </div>
         </div>
